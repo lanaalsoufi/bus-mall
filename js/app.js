@@ -107,9 +107,16 @@ results.addEventListener('click', function dataResults() {
         list.appendChild(item);
         item.textContent = `${product.all[i].name.split('.')[0]} had ${product.all[i].Click} votes, and was seen ${product.all[i].timesShown} times.`;
     }
-}, {
-    once: true
-});
+    results.removeEventListener('click', dataResults);
+},
+);
+// when I want to click a button and see the results one time without dublicating it when I click again,
+//  I can use one of these two ways
+// results.removeEventListener('click', dataResults);
+// or
+// {
+    // once: true
+// }
 
 
 
@@ -118,4 +125,3 @@ function randomNumber(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
-
