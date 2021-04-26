@@ -92,6 +92,7 @@ function clickIt(event) {
         }
         clicker++;
         render();
+        renderChart(); 
     }
 }
 
@@ -118,10 +119,52 @@ results.addEventListener('click', function dataResults() {
     // once: true
 // }
 
-
-
 function randomNumber(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+// # Chart.js
+function renderChart() {
+    let votes = [];
+    let names = [];
+    let timesShown = [];
+    for (let i = 0; i < product.all.length; i++) {
+        votes.push(product.all[i].votes);
+        names.push(product.all[i].names); 
+        timesShown.push(product.all[i].timesShown); 
+    }
+    var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: names,
+        datasets: [{
+            label: 'Votes',
+            data: votes,
+            backgroundColor: 
+                'rgba(255, 99, 132, 0.2)',
+            borderColor: 
+                'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        }, {
+            label: 'Times Shown',
+            data: timesShown,
+            backgroundColor: 
+                'rgba(144, 99, 100, 0.2)',
+            borderColor: 
+                'rgba(144, 99, 100, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+}
+
