@@ -35,17 +35,17 @@ let leftImgCounts = 0;
 let centerImgCounts = 0;
 let rightImgCounts = 0;
 
-let bussMall = function(name) {
+let product = function(name) {
     this.name = name;
     this.img = `./img/${name}`;
-    this.shown = 0;
-    this.click = 0;
-    bussMall.all.push(this);
+    this.timesShown = 0;
+    this.Click = 0;
+    product.all.push(this);
 };
-bussMall.all = [];
+product.all = [];
 
 for (let i = 0; i < nameArray.length; i++) {
-    new bussMall(nameArray[i]);
+    new product(nameArray[i]);
 }
 
 function render() {
@@ -60,42 +60,56 @@ function render() {
         leftIndex = randomNumber(0, nameArray.length - 1);
     } while (leftIndex === rightIndex || leftIndex === centerIndex);
 
-    rightImg.src = Sections.all[rightIndex].img;
-    centerImg.src = Sections.all[centerIndex].img;
-    leftImg.src = Sections.all[leftIndex].img;
+    rightImg.src = product.all[rightIndex].img;
+    centerImg.src = product.all[centerIndex].img;
+    leftImg.src = product.all[leftIndex].img;
 
     rightImgCounts = rightIndex;
     centerImgCounts = centerIndex;
     leftImgCounts = leftIndex;
 
-    Sections.all[rightIndex].shown++;
-    Sections.all[centerIndex].shown++;
-    Sections.all[leftIndex].shown++;
+    product.all[rightIndex].timesShown++;
+    product.all[centerIndex].timesShown++;
+    product.all[leftIndex].timesShown++;
 }
 render();
 
+allProducts.addEventListener('click', clickIt);
 
-allProducts.addEventListener('click', whenClick);
-
-function whenClick(event) {
+function clickIt(event) {
     if ((event.target.id === 'rightImg' || event.target.id === 'centerImg' || event.target.id === 'leftImg') && clicker < rounds) {
 
         if (event.target.id === 'rightImg') {
-            Sections.all[rightImgCounts].clicks++;
+            product.all[rightImgCounts].Click++;
         }
 
         if (event.target.id === 'rightImage') {
-            Sections.all[centerImgCounts].click++;
+            product.all[centerImgCounts].Click++;
         }
 
         if (event.target.id === 'leftImg') {
-            Sections.all[leftImgCounts].click++;
+            product.all[leftImgCounts].Click++;
         }
         clicker++;
         render();
     }
 }
 
+// console.log(product.all);
+
+
+const results = document.getElementById('results');
+const list = document.getElementById('list');
+
+results.addEventListener('click', function dataResults() {
+    for (let i = 0; i < nameArray.length; i++) {
+        let item = document.createElement('li');
+        list.appendChild(item);
+        item.textContent = `${product.all[i].name.split('.')[0]} had ${product.all[i].Click} votes, and was seen ${product.all[i].timesShown} times.`;
+    }
+}, {
+    once: true
+});
 
 
 
@@ -104,5 +118,4 @@ function randomNumber(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
-
 
