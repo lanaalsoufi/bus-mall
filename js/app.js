@@ -92,7 +92,8 @@ function clickIt(event) {
         }
         clicker++;
         render();
-        renderChart(); 
+    } else{ renderChart(); 
+        
     }
 }
 
@@ -132,11 +133,11 @@ function renderChart() {
     let timesShown = [];
     for (let i = 0; i < product.all.length; i++) {
         votes.push(product.all[i].votes);
-        names.push(product.all[i].names); 
+        names.push(product.all[i].name); 
         timesShown.push(product.all[i].timesShown); 
     }
-    var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
+    let ctx = document.getElementById('myChart').getContext('2d');
+    let myChart = new Chart(ctx, {
     type: 'bar',
     data: {
         labels: names,
@@ -168,3 +169,4 @@ var myChart = new Chart(ctx, {
 });
 }
 
+console.log(renderChart);
