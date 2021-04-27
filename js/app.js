@@ -45,7 +45,7 @@ let product = function(name) {
     this.name = name;
     this.img = `./img/${name}`;
     this.timesShown = 0;
-    this.Click = 0;
+    this.click = 0;
     product.all.push(this);
 };
 product.all = [];
@@ -89,21 +89,24 @@ function clickIt(event) {
     if ((event.target.id === 'rightImg' || event.target.id === 'centerImg' || event.target.id === 'leftImg') && clicker < rounds) {
 
         if (event.target.id === 'rightImg') {
-            product.all[rightImgCounts].Click++;
+            product.all[rightImgCounts].click++;
         }
 
         if (event.target.id === 'rightImage') {
-            product.all[centerImgCounts].Click++;
+            product.all[centerImgCounts].click++;
         }
 
         if (event.target.id === 'leftImg') {
-            product.all[leftImgCounts].Click++;
+            product.all[leftImgCounts].click++;
         }
         clicker++;
         render();
     } else{ renderChart(); 
         
     }
+if(clicker === rounds) {
+    results.removeEventListener('click' , clickIt)
+}
 }
 
 // console.log(product.all);
@@ -116,7 +119,7 @@ results.addEventListener('click', function dataResults() {
     for (let i = 0; i < nameArray.length; i++) {
         let item = document.createElement('li');
         list.appendChild(item);
-        item.textContent = `${product.all[i].name.split('.')[0]} had ${product.all[i].Click} votes, and was seen ${product.all[i].timesShown} times.`;
+        item.textContent = `${product.all[i].name.split('.')[0]} had ${product.all[i].click} votes, and was seen ${product.all[i].timesShown} times.`;
     }
     results.removeEventListener('click', dataResults);
 },
@@ -141,7 +144,7 @@ function renderChart() {
     let names = [];
     let timesShown = [];
     for (let i = 0; i < product.all.length; i++) {
-        votes.push(product.all[i].votes);
+        votes.push(product.all[i].click);
         names.push(product.all[i].name); 
         timesShown.push(product.all[i].timesShown); 
     }
