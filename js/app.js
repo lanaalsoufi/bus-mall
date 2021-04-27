@@ -34,6 +34,12 @@ let rounds = 25
 let leftImgCounts = 0;
 let centerImgCounts = 0;
 let rightImgCounts = 0;
+let leftNewIndex = 0;
+let centerNewIndex = 0;
+let rightNewIndex = 0;
+
+
+
 
 let product = function(name) {
     this.name = name;
@@ -49,16 +55,15 @@ for (let i = 0; i < nameArray.length; i++) {
 }
 
 function render() {
-    let rightIndex = randomNumber(0, nameArray.length - 1);
+    let rightIndex;
     let centerIndex;
     let leftIndex;
-    do {
-        centerIndex = randomNumber(0, nameArray.length - 1);
-    } while (rightIndex === centerIndex);
 
     do {
+        rightIndex = randomNumber(0, nameArray.length - 1);
+        centerIndex = randomNumber(0, nameArray.length - 1);
         leftIndex = randomNumber(0, nameArray.length - 1);
-    } while (leftIndex === rightIndex || leftIndex === centerIndex);
+    } while (leftIndex === rightIndex || leftIndex === centerIndex || rightIndex === centerIndex || rightIndex === leftNewIndex || rightIndex === centerNewIndex || rightIndex === rightNewIndex || leftIndex === leftNewIndex || leftIndex === centerNewIndex || leftIndex === rightNewIndex || centerIndex === rightNewIndex || centerIndex === centerNewIndex || centerIndex === leftNewIndex);
 
     rightImg.src = product.all[rightIndex].img;
     centerImg.src = product.all[centerIndex].img;
@@ -145,17 +150,17 @@ function renderChart() {
             label: 'Votes',
             data: votes,
             backgroundColor: 
-                'rgba(255, 99, 132, 0.2)',
+            'rgb(243, 173, 150)',
             borderColor: 
-                'rgba(255, 99, 132, 1)',
+            'rgb(243, 173, 150)',
             borderWidth: 1
         }, {
             label: 'Times Shown',
             data: timesShown,
             backgroundColor: 
-                'rgba(144, 99, 100, 0.2)',
+            'rgb(169, 50, 38)',
             borderColor: 
-                'rgba(144, 99, 100, 1)',
+            'rgb(169, 50, 38)',
             borderWidth: 1
         }]
     },
