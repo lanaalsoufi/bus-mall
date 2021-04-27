@@ -99,9 +99,9 @@ function clickIt(event) {
 
         if (event.target.id === 'leftImg') {
             product.all[leftImgCounts].click++;
-        }else{
-            saveData(); 
         }
+        saveData(); 
+        
         clicker++;
         render();
     }else{ renderChart(); 
@@ -202,7 +202,7 @@ function saveData(){
   
   }
   showData();
-  
+
 
   
   function randomNumber(min, max) {
