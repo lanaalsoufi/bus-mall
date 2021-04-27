@@ -76,6 +76,10 @@ function render() {
     product.all[rightIndex].timesShown++;
     product.all[centerIndex].timesShown++;
     product.all[leftIndex].timesShown++;
+
+    leftNewIndex = leftIndex;
+    centerNewIndex = centerIndex;
+    rightNewIndex = rightIndex;
 }
 render();
 
