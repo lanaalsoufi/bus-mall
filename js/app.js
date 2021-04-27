@@ -54,6 +54,7 @@ for (let i = 0; i < nameArray.length; i++) {
     new product(nameArray[i]);
 }
 
+
 function render() {
     let rightIndex;
     let centerIndex;
@@ -92,17 +93,19 @@ function clickIt(event) {
             product.all[rightImgCounts].click++;
         }
 
-        if (event.target.id === 'rightImage') {
+        if (event.target.id === 'centerImg') {
             product.all[centerImgCounts].click++;
         }
 
         if (event.target.id === 'leftImg') {
             product.all[leftImgCounts].click++;
+        }else{
+            saveData(); 
         }
         clicker++;
         render();
-    } else{ renderChart(); 
-        
+    }else{ renderChart(); 
+    
     }
 if(clicker === rounds) {
     results.removeEventListener('click' , clickIt)
@@ -132,11 +135,6 @@ results.addEventListener('click', function dataResults() {
     // once: true
 // }
 
-function randomNumber(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
 
 // # Chart.js
 function renderChart() {
@@ -182,3 +180,33 @@ function renderChart() {
 }
 
 console.log(renderChart);
+
+
+
+// # Local Storage
+
+function saveData(){
+
+    localStorage.setItem('product', JSON.stringify(product.all));
+  }
+  
+  function showData(){
+  
+    let productData = JSON.parse(localStorage.getItem('product'));
+    // console.log(productData);
+  
+    if (productData !== null) {
+        product.all = productData;
+    }
+    render();
+  
+  }
+  showData();
+  
+
+  
+  function randomNumber(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
